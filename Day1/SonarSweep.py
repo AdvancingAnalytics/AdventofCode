@@ -20,14 +20,14 @@ print("last value:", previousValue)
 previousValue = 0
 depthIncreases = 0
 
-def sliding_window(elements, window_size):
+def slidingWindow(elements, windowSize):
     groupedElements = []
-    for i in range(len(elements) - window_size + 1):
-        groupedElements.append(sum(elements[i:i+window_size]))
+    for i in range(len(elements) - windowSize + 1):
+        groupedElements.append(sum(elements[i:i+windowSize]))
     return groupedElements
 
 
-groupedElements = sliding_window(lines, 3)
+groupedElements = slidingWindow(lines, 3)
 
 for element in groupedElements:
     if element > previousValue and previousValue != 0:
