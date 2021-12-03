@@ -6,20 +6,20 @@ We split into three teams to tackle each day's challenges using different techno
 
 Check out our solutions and get in touch if you have any questions!
 
-## Merry Christmas!
+ 🎄 Merry Christmas! 🎄
 
 
 ## Teams
 
 ### Rogue Squadron
 
-Ust Oldfield
+Ust Oldfield  
 Grace O'Halloran
 ### Suicide Squad
 
-Anna Wykes
+Anna Wykes  
 Paul McCaskie
 ### "It works on my machine"
 
-Craig Porteous | [Twitter](https://twitter.com/cporteous)
+Craig Porteous | [Twitter](https://twitter.com/cporteous)  
 Torr Wylder
