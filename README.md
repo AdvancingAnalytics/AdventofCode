@@ -13,7 +13,7 @@ Check out our solutions and get in touch if you have any questions!
 
 ### Rogue Squadron
 
-Ust Oldfield  
+Ust Oldfield | [Twitter](https://twitter.com/UstDoesTech) | [Blog](https://www.ustdoes.tech/posts)
 Grace O'Halloran
 ### Suicide Squad
 
