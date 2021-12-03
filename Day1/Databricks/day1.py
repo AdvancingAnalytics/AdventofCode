@@ -48,3 +48,27 @@ resultsdf.where(resultsdf.change >= 0).count()
 # MAGIC %md 
 # MAGIC 
 # MAGIC ## Challenge 2
+
+# COMMAND ----------
+
+resultsdf.show()
+
+# COMMAND ----------
+
+# Comparing the sum of 3 results
+windowSpec  = Window.partitionBy().orderBy("rowId")
+windowSpec2  = Window.partitionBy().orderBy("rowId").rowsBetween(-2, Window.currentRow)
+
+windowdf = (resultsdf.withColumn("windowSum",F.sum("depthReading").over(windowSpec2))
+            .withColumn("previousWindowSum", F.lag("windowSum").over(windowSpec).cast(IntegerType()))
+            .withColumn("windowChange",col("windowSum") - col("previousWindowSum")))
+
+windowdf.show()
+
+# COMMAND ----------
+
+# Return a count of records where the change is greater than zero
+windowdf.where(windowdf.windowChange >= 1).count()
+
+# Take away 2 from the value as the first two values dont have a complete 3 readings. 
+# Its dirty I know!!
