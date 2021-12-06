@@ -18,7 +18,7 @@ Grace O'Halloran | [Twitter](https://twitter.com/graceaohalloran) | [Blog](https
 ### Suicide Squad
 
 Anna Wykes  
-Paul McCaskie
+Paul McCaskie [Twitter](https://twitter.com/paulmccaskie)  
 ### "It works on my machine"
 
 Craig Porteous | [Twitter](https://twitter.com/cporteous)  
