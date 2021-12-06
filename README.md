@@ -14,7 +14,7 @@ Check out our solutions and get in touch if you have any questions!
 ### Rogue Squadron
 
 Ust Oldfield | [Twitter](https://twitter.com/UstDoesTech) | [Blog](https://www.ustdoes.tech/posts)  
-Grace O'Halloran
+Grace O'Halloran | [Twitter](https://twitter.com/graceaohalloran) | [Blog](https://www.thinkingacloud.co.uk/)
 ### Suicide Squad
 
 Anna Wykes  
