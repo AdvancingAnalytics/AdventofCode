@@ -35,59 +35,15 @@ namespace AdventOfCode_3
 
         public string GetOxygen(string[] diagnostics)
         {
-            var filteredDiags = diagnostics;
-
-            var length = diagnostics.First().Length;
-
-            for (int i = 0; i < length; i++)
-            {
-                var numOfOnes = filteredDiags.Where(d => d[i] == '1').Count();
-                var numOfZeroes = filteredDiags.Where(d => d[i] == '0').Count();                
-
-                if (numOfZeroes > numOfOnes)
-                {
-                    filteredDiags = filteredDiags.Where(d => d[i] == '0').ToArray();                                
-                }
-                else
-                {
-                    filteredDiags = filteredDiags.Where(d => d[i] == '1').ToArray();                                
-                }
-
-                if (filteredDiags.Count() == 1)                    
-                    break;
-            }
-
-            return filteredDiags.First();
+            return GetFilteredDiags(diagnostics, '0', '1');
         }
 
         public string GetCO2Scrubber(string[] diagnostics)
         {
-            var filteredDiags = diagnostics;
-
-            var length = diagnostics.First().Length;
-
-            for (int i = 0; i < length; i++)
-            {
-                var numOfOnes = filteredDiags.Where(d => d[i] == '1').Count();
-                var numOfZeroes = filteredDiags.Where(d => d[i] == '0').Count();                
-
-                if (numOfZeroes > numOfOnes)
-                {
-                    filteredDiags = filteredDiags.Where(d => d[i] == '1').ToArray();                                
-                }
-                else
-                {
-                    filteredDiags = filteredDiags.Where(d => d[i] == '0').ToArray();                                
-                }
-
-                if (filteredDiags.Count() == 1)                    
-                    break;
-            }
-
-            return filteredDiags.First();
+            return GetFilteredDiags(diagnostics, '1', '0');            
         }
 
-        public string GetFilteredDiags(string[] diagnostics, string toCount)
+        public string GetFilteredDiags(string[] diagnostics, char high, char low)
         {
             var filteredDiags = diagnostics;
 
@@ -100,11 +56,11 @@ namespace AdventOfCode_3
 
                 if (numOfZeroes > numOfOnes)
                 {
-                    filteredDiags = filteredDiags.Where(d => d[i] == '1').ToArray();                                
+                    filteredDiags = filteredDiags.Where(d => d[i] == high).ToArray();                                
                 }
                 else
                 {
-                    filteredDiags = filteredDiags.Where(d => d[i] == '0').ToArray();                                
+                    filteredDiags = filteredDiags.Where(d => d[i] == low).ToArray();                                
                 }
 
                 if (filteredDiags.Count() == 1)                    
