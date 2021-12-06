@@ -15,6 +15,17 @@ namespace AdventOfCode_3
             }
         }
 
+        public int OxygenRate { 
+            get {
+                return Convert.ToInt32(OxygenBinary, 2);
+            }
+        }        
+        public int CO2ScrubberRate {
+            get {
+                return Convert.ToInt32(CO2ScrubberBinary, 2);
+            }
+        }
+
         public string GammaRateBinary { get; set; }
         public string EpsilonRateBinary { get; set; }
         public string CO2ScrubberBinary { get; set; }

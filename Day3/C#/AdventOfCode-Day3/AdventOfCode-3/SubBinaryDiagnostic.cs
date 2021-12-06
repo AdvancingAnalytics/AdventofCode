@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventOfCode_3
@@ -29,32 +27,91 @@ namespace AdventOfCode_3
                 }                    
             }
 
+            binaryDiag.OxygenBinary = GetOxygen(diagnostics);
+            binaryDiag.CO2ScrubberBinary = GetCO2Scrubber(diagnostics);
+
             return binaryDiag;
         }
 
-        public IEnumerable<string> GetSomething(IEnumerable<string> diagnostics, int position)
+        public string GetOxygen(string[] diagnostics)
         {
-            var binaryDiag = new SubBinaryDiag();
-            List<string> filteredDiags = new List<string>();
+            var filteredDiags = diagnostics;
 
-            var numOfOnes = diagnostics.Where(d => d[position] == '1').Count();
-            var numOfZeroes = diagnostics.Where(d => d[position] == '0').Count();                
+            var length = diagnostics.First().Length;
 
-            if (numOfZeroes > numOfOnes)
+            for (int i = 0; i < length; i++)
             {
-                filteredDiags = diagnostics.Where(d => d[position] == '0').ToList<string>();
+                var numOfOnes = filteredDiags.Where(d => d[i] == '1').Count();
+                var numOfZeroes = filteredDiags.Where(d => d[i] == '0').Count();                
+
+                if (numOfZeroes > numOfOnes)
+                {
+                    filteredDiags = filteredDiags.Where(d => d[i] == '0').ToArray();                                
+                }
+                else
+                {
+                    filteredDiags = filteredDiags.Where(d => d[i] == '1').ToArray();                                
+                }
+
+                if (filteredDiags.Count() == 1)                    
+                    break;
             }
-            else
+
+            return filteredDiags.First();
+        }
+
+        public string GetCO2Scrubber(string[] diagnostics)
+        {
+            var filteredDiags = diagnostics;
+
+            var length = diagnostics.First().Length;
+
+            for (int i = 0; i < length; i++)
             {
-                filteredDiags = diagnostics.Where(d => d[position] == '1').ToList<string>();                                   
+                var numOfOnes = filteredDiags.Where(d => d[i] == '1').Count();
+                var numOfZeroes = filteredDiags.Where(d => d[i] == '0').Count();                
+
+                if (numOfZeroes > numOfOnes)
+                {
+                    filteredDiags = filteredDiags.Where(d => d[i] == '1').ToArray();                                
+                }
+                else
+                {
+                    filteredDiags = filteredDiags.Where(d => d[i] == '0').ToArray();                                
+                }
+
+                if (filteredDiags.Count() == 1)                    
+                    break;
             }
 
-            if (filteredDiags.Count() != 1)
-            {
-                filteredDiags = GetSomething(filteredDiags).ToList();
-            }                    
+            return filteredDiags.First();
+        }
 
-            return filteredDiags;            
+        public string GetFilteredDiags(string[] diagnostics, string toCount)
+        {
+            var filteredDiags = diagnostics;
+
+            var length = diagnostics.First().Length;
+
+            for (int i = 0; i < length; i++)
+            {
+                var numOfOnes = filteredDiags.Where(d => d[i] == '1').Count();
+                var numOfZeroes = filteredDiags.Where(d => d[i] == '0').Count();                
+
+                if (numOfZeroes > numOfOnes)
+                {
+                    filteredDiags = filteredDiags.Where(d => d[i] == '1').ToArray();                                
+                }
+                else
+                {
+                    filteredDiags = filteredDiags.Where(d => d[i] == '0').ToArray();                                
+                }
+
+                if (filteredDiags.Count() == 1)                    
+                    break;
+            }
+
+            return filteredDiags.First();
         }
     }
 }
