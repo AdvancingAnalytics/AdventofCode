@@ -149,7 +149,7 @@ for i in range(0,length):
 finalScore1 = uncheckedNumbersScore * winningDraw
 print(finalScore1)
     
-# Part 2
+# Part 2 - DOESNT WORK YET
 
     
 #sum each row in the check boards
