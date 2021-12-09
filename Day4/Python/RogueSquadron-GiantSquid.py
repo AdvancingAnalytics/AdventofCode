@@ -2,7 +2,7 @@
 # Day 4
 
 
-# Part 1
+# Set up Bingo Game (Run before each part)
 
 #import packages
 import numpy as np
@@ -72,6 +72,7 @@ for x in drawnNumbers:
         orderNumber = allPositions[x][y][0]
         checkBoard[boardNumber][rowNumber][indexNumber] = orderNumber
 
+# Part 1 Score
 
 #sum each row in the check boards
 scoresRows = {}
@@ -149,112 +150,55 @@ for i in range(0,length):
 finalScore1 = uncheckedNumbersScore * winningDraw
 print(finalScore1)
     
-# Part 2 - DOESNT WORK YET
 
-    
-#sum each row in the check boards
-scoresRows = {}
-rowCount = 0
+
+# Part 2
+
+minRowDict = {}
+arrayCount = 0
 for array in checkBoard:
+    maxRows = []
     for row in array:
-        tot = sum(row.astype(int))
-        scoresRows[rowCount] = tot
-        rowCount+=1
-scoresCols = {}
-colCount = 0
+        maxRows.append(max(row))
+    minNum = min(maxRows)
+    loc = [np.where(array==minNum)[0][0], np.where(array==minNum)[1][0]]
+    minRowDict[arrayCount] = [minNum, loc]
+    arrayCount+=1
+
+minColDict = {}
+arrayCount = 0
 for array in checkBoard:
+    maxCols = []
     for row in array.transpose():
-        tot = sum(row.astype(int))
-        scoresCols[colCount] = tot
-        colCount+=1
+        maxCols.append(max(row))
+    minNum = min(maxCols)
+    loc = [np.where(array==minNum)[0][0], np.where(array==minNum)[1][0]]
+    minColDict[arrayCount] = [minNum, loc]
+    arrayCount+=1
+    
+minDict = {}
+for key,val in zip(minRowDict, minColDict):
+    if minRowDict[key][0] < minColDict[key][0]:
+        minDict[key] = [minRowDict[key][0], minRowDict[key][1]]
+    else:
+        minDict[key] = [minColDict[key][0], minColDict[key][1]]
         
+minOverall  = []
+for key, val in minDict.items():
+    minOverall.append(minDict[key][0])
 
-lowestArraysRows = []
-lowestArraysCols = []
-rowDict = {}
-colDict = {}
-scoreRow = 1000000
-scoreCol = 1000000
-while len(scoresRows) > 0:
-    lowestRowIndex = min(scoresRows, key = scoresRows.get)
-    lowestColIndex = min(scoresCols, key = scoresCols.get)
-    lowestArray1 = (lowestRowIndex+1)//5 
-    lowestArray2 = (lowestColIndex+1)//5 
-    lowestArrayRow = (lowestRowIndex)%5
-    lowestArrayCol = (lowestColIndex)%5
-    lowestArraysRows.append(lowestArray1)
-    lowestArraysCols.append(lowestArray2)
-    if lowestArrayRow not in rowDict.keys() or min(scoresRows.values()) < scoreRow:
-        rowDict[lowestArray1]=lowestArrayRow
-    else:
-        pass
-    if lowestArrayCol not in colDict.keys() or min(scoresCols.values()) < scoreCol:
-        colDict[lowestArray2]=lowestArrayCol
-    else:
-        pass
-    scoreRow = min(scoresRows.values())
-    scoreCol = min(scoresCols.values())
-    del scoresRows[lowestRowIndex]
-    del scoresCols[lowestColIndex]
-    
-uniqueArraysRows = []
-for n in lowestArraysRows:
-    if n not in uniqueArraysRows:
-        uniqueArraysRows.append(n)
-uniqueArraysCols = []
-for m in lowestArraysCols:
-    if m not in uniqueArraysCols:
-        uniqueArraysCols.append(m)
+maxWin = max(minOverall)
+maxWinIndex = max(minDict, key = minDict.get)
 
+maxRowIndex = minDict[maxWinIndex][1][0]
+maxColIndex = minDict[maxWinIndex][1][1]
 
-highestArrayRows = uniqueArraysRows[-2]
-#highestArrayRow = rowDict[highestArrayRows]
-highestArrayCols = uniqueArraysCols[-2]
-#highestArrayCol = colDict[highestArrayRows]
-
-maxNumberRow = {}
-i=0
-for row in checkBoard[highestArrayRows]:
-    maxNumberRow[i] = max(row)
-    i+=1
-    
-lowestIndexRow = min(maxNumberRow, key = maxNumberRow.get)
-highestArrayRow = lowestIndexRow
-
-
-maxNumberCol = {}
-i=0
-for row in checkBoard[highestArrayCols].transpose():
-    maxNumberCol[i] = max(row)
-    i+=1
-    
-lowestIndexCol = min(maxNumberCol, key = maxNumberCol.get)
-highestArrayCol = lowestIndexCol
-
-print("array: "+str(highestArrayRows), "row: "+str(highestArrayRow))
-print("array: "+str(highestArrayCols), "col: "+str(highestArrayCol))
-
-winningRow = boards[highestArrayRows][highestArrayRow].astype(int)
-winningCol = boards[highestArrayCols].transpose()[highestArrayCol].astype(int)
-
-
-winningIndexRow = maxNumberRow[lowestIndexRow]
-winningIndexCol = maxNumberCol[lowestIndexCol]
-
-winningIndex = int(max(winningIndexRow,winningIndexCol))
-winningDraw = drawnNumbers[winningIndex-1]
-
-if winningIndex == winningIndexRow:
-    highestArray = highestArrayRows
-else:
-    highestArray = highestArrayCols
-
-
+        
 #for all numbers that were drawn after than the winning draw number, mark as 0
-checkBoard[highestArray][checkBoard[highestArray]>winningIndex+1] = 0
+checkBoard[maxWinIndex][checkBoard[maxWinIndex]>maxWin+1] = 0
 
 #get the indexes of all the 0s, and add the scores together from the bingo board of these numbers
-listArrays = np.where(checkBoard[highestArray] == 0)
+listArrays = np.where(checkBoard[maxWinIndex] == 0)
 length = len(listArrays[0])
 uncheckedNumbers = []
 for i in range(0, length):
@@ -262,9 +206,11 @@ for i in range(0, length):
  
 uncheckedNumbersScore = 0
 for i in range(0,length):    
-    uncheckedNumbersScore = uncheckedNumbersScore + int(boards[highestArrayRows][uncheckedNumbers[i][0]][uncheckedNumbers[i][1]])
+    uncheckedNumbersScore = uncheckedNumbersScore + int(boards[maxWinIndex][uncheckedNumbers[i][0]][uncheckedNumbers[i][1]])
     
 # final score 
+
+winningDraw = int(boards[maxWinIndex][maxRowIndex][maxColIndex])
 
 finalScore2 = uncheckedNumbersScore * winningDraw
 print(finalScore2)
