@@ -22,57 +22,69 @@ strippedLines = lines[2:]
 
 #loop through boards to create a list of arrays (each array is a bingo board)
 
-for i in range(0,len(strippedLines)):
-    strippedLines[i] = strippedLines[i].replace(' ',',').replace(',,',',')
-    if strippedLines[i][0] == ',':
-        strippedLines[i] = strippedLines[i][1:]
-    strippedLines[i] = strippedLines[i].split(',')
-            
-            
-boards = []
-for l in range(0, len(strippedLines)-5, 6):
-    boards.append(np.array(strippedLines[l:l+5]).reshape(5,5))
+def createBingoBoards(strippedLines):
+
+    for i in range(0,len(strippedLines)):
+        strippedLines[i] = strippedLines[i].replace(' ',',').replace(',,',',')
+        if strippedLines[i][0] == ',':
+            strippedLines[i] = strippedLines[i][1:]
+        strippedLines[i] = strippedLines[i].split(',')
+                
+                
+    boards = []
+    for l in range(0, len(strippedLines)-5, 6):
+        boards.append(np.array(strippedLines[l:l+5]).reshape(5,5))
     
+    return boards
+
 #play bingo
 
 #collect the array and row index for each hit against a drawn numbers
 #also collect the order in which the hit was marked off
 
-allPositions = {}
-c = 1
-d = 0
-for x in drawnNumbers:
-    positionsForX = {}
-    arrayCount = 0
-    for array in boards:
-        rowCount = 0
-        for row in array:
-            pos = np.where(row.astype(int) == x)
-            if len(pos[0]) != 0:
-                positionsForX[d] = [c,arrayCount, rowCount, pos[0][0]]  
-                d+=1
-            rowCount +=1
-        arrayCount += 1
-        allPositions[x] = positionsForX
-    c+=1
-
-#create a "check" board to mark the order of the bingo hits
-
-#start with zeros
-checkBoard = []
-for l in range(0, len(strippedLines)-5, 6):
-    checkBoard.append(np.zeros((5,5)))
+def playBingo(boards):
+    allPositions = {}
+    c = 1
+    d = 0
+    for x in drawnNumbers:
+        positionsForX = {}
+        arrayCount = 0
+        for array in boards:
+            rowCount = 0
+            for row in array:
+                pos = np.where(row.astype(int) == x)
+                if len(pos[0]) != 0:
+                    positionsForX[d] = [c,arrayCount, rowCount, pos[0][0]]  
+                    d+=1
+                rowCount +=1
+            arrayCount += 1
+            allPositions[x] = positionsForX
+        c+=1
     
-#fill in bingo hits  
-for x in drawnNumbers:
-    for y in allPositions[x]:
-        boardNumber = allPositions[x][y][1]
-        rowNumber = allPositions[x][y][2]
-        indexNumber = allPositions[x][y][3]
-        orderNumber = allPositions[x][y][0]
-        checkBoard[boardNumber][rowNumber][indexNumber] = orderNumber
+    #create a "check" board to mark the order of the bingo hits
+    
+    #start with zeros
+    checkBoard = []
+    for l in range(0, len(strippedLines)-5, 6):
+        checkBoard.append(np.zeros((5,5)))
+        
+    #fill in bingo hits  - this plays a full game of bingo ignoring any wins, right through till all numbers have been drawn
+    #the checkboard shows the order in which the numbers were marked off 
+    for x in drawnNumbers:
+        for y in allPositions[x]:
+            boardNumber = allPositions[x][y][1]
+            rowNumber = allPositions[x][y][2]
+            indexNumber = allPositions[x][y][3]
+            orderNumber = allPositions[x][y][0]
+            checkBoard[boardNumber][rowNumber][indexNumber] = orderNumber
+            
+    return allPositions, checkBoard
+
+boards = createBingoBoards(strippedLines)
 
 # Part 1 Score
+
+allPositions, checkBoard = playBingo(boards)
 
 #sum each row in the check boards
 scoresRows = {}
@@ -148,11 +160,14 @@ for i in range(0,length):
 # final score 
 
 finalScore1 = uncheckedNumbersScore * winningDraw
-print(finalScore1)
+print("Part 1 score: "+str(finalScore1))
     
 
 
 # Part 2
+
+allPositions, checkBoard = playBingo(boards)
+
 
 minRowDict = {}
 arrayCount = 0
@@ -193,6 +208,9 @@ maxWinIndex = max(minDict, key = minDict.get)
 maxRowIndex = minDict[maxWinIndex][1][0]
 maxColIndex = minDict[maxWinIndex][1][1]
 
+
+print("array: "+str(maxWinIndex), "row: "+str(maxRowIndex),"col: "+str(maxColIndex))
+
         
 #for all numbers that were drawn after than the winning draw number, mark as 0
 checkBoard[maxWinIndex][checkBoard[maxWinIndex]>maxWin+1] = 0
@@ -213,4 +231,4 @@ for i in range(0,length):
 winningDraw = int(boards[maxWinIndex][maxRowIndex][maxColIndex])
 
 finalScore2 = uncheckedNumbersScore * winningDraw
-print(finalScore2)
+print("Part 2 score: "+str(finalScore2))
