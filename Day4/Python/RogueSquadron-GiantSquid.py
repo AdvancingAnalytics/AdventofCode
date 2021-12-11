@@ -9,7 +9,7 @@ import numpy as np
 
 #ingest file
 
-file = open("input_grace.txt", "r")
+file = open("input.txt", "r")
 lines = file.readlines()
 
 
