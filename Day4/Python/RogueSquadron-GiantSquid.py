@@ -49,7 +49,7 @@ def playBingo(boards):
     for x in drawnNumbers:
         positionsForX = {}
         arrayCount = 0
-        for array in boards:
+        for array in boards:y
             rowCount = 0
             for row in array:
                 pos = np.where(row.astype(int) == x)
@@ -144,17 +144,19 @@ else:
     lowestArray = lowestArray2
     
 #for all numbers that were drawn after than the winning draw number, mark as 0
-checkBoard[lowestArray][checkBoard[lowestArray1]>winningIndex+1] = 0
+checkBoard[lowestArray][checkBoard[lowestArray1]>winningIndex+1] = 999
     
 #get the indexes of all the 0s, and add the scores together from the bingo board of these numbers
-listArrays = np.where(checkBoard[lowestArray] == 0)
+listArrays = np.where(checkBoard[lowestArray] == 999)
 length = len(listArrays[0])
 uncheckedNumbers = []
 for i in range(0, length):
     uncheckedNumbers.append([listArrays[0][i],listArrays[1][i]])
- 
+
+lst = []
 uncheckedNumbersScore = 0
 for i in range(0,length):    
+    lst.append(int(boards[lowestArray][uncheckedNumbers[i][0]][uncheckedNumbers[i][1]]))
     uncheckedNumbersScore = uncheckedNumbersScore + int(boards[lowestArray][uncheckedNumbers[i][0]][uncheckedNumbers[i][1]])
     
 # final score 
@@ -213,10 +215,10 @@ print("array: "+str(maxWinIndex), "row: "+str(maxRowIndex),"col: "+str(maxColInd
 
         
 #for all numbers that were drawn after than the winning draw number, mark as 0
-checkBoard[maxWinIndex][checkBoard[maxWinIndex]>maxWin+1] = 0
+checkBoard[maxWinIndex][checkBoard[maxWinIndex]>maxWin] = 999
 
 #get the indexes of all the 0s, and add the scores together from the bingo board of these numbers
-listArrays = np.where(checkBoard[maxWinIndex] == 0)
+listArrays = np.where(checkBoard[maxWinIndex] == 999)
 length = len(listArrays[0])
 uncheckedNumbers = []
 for i in range(0, length):

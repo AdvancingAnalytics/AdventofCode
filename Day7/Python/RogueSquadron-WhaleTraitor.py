@@ -1,9 +1,10 @@
 
 from os import read
 import statistics
+from math import floor
 
 
-file = open("input.txt", "r")
+file = open("input_grace.txt", "r")
 line = file.readline().split(",")
 
 line = list(map(int, line))
@@ -18,7 +19,7 @@ for i in line:
 print(fuelCost)
 
 newFuelCost = 0
-mean = round(statistics.mean(line))
+mean = floor(statistics.mean(line))-1
 
 for i in line:
     distance = abs(i - mean)
