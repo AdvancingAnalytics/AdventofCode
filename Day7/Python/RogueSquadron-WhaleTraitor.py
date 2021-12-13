@@ -18,7 +18,7 @@ for i in line:
 print(fuelCost)
 
 newFuelCost = 0
-mean = round(statistics.mean(line))
+mean = round(statistics.mean(line))-1
 
 for i in line:
     distance = abs(i - mean)
