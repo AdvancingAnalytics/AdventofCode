@@ -19,7 +19,11 @@ for i in line:
 print(fuelCost)
 
 newFuelCost = 0
+<<<<<<< HEAD
+mean = round(statistics.mean(line))-1
+=======
 mean = floor(statistics.mean(line))-1
+>>>>>>> 8a35e4613744663a5c8ff7c98c498c5a5f821074
 
 for i in line:
     distance = abs(i - mean)
