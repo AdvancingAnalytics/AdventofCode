@@ -23,3 +23,32 @@ Paul McCaskie
 
 Craig Porteous | [Twitter](https://twitter.com/cporteous)  
 Torr Wylder
+
+
+| Day | Team | Coder |
+| --- | --- | --- |
+| 1 | Rogue Squadron | |
+| 2 | It works on my machine | Craig |
+| 3 | Suicide Squad | |
+| 4 | Rogue Squadron | Grace |
+| 5 | It works on my machine | Torr |
+| 6 | Suicide Squad | Anna |
+| 7 | Rogue Squadron | Ust |
+| 8 | It works on my machine | |
+| 9 | Suicide Squad | |
+| 10 | Rogue Squadron | |
+| 11 | It works on my machine | |
+| 12 | Suicide Squad | |
+| 13 | Rogue Squadron | |
+| 14 | It works on my machine | |
+| 15 | Suicide Squad | |
+| 16 | Rogue Squadron | |
+| 17 | It works on my machine | |
+| 18 | Suicide Squad | |
+| 19 | Rogue Squadron | |
+| 20 | It works on my machine | |
+| 21 | Suicide Squad | |
+| 22 | Rogue Squadron | |
+| 23 | It works on my machine | |
+| 24 | Suicide Squad | |
+| 25 | Rogue Squadron | |
